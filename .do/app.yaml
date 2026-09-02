@@ -1,0 +1,29 @@
+# DigitalOcean App Platform — static site (free Starter tier).
+# Create with:  doctl apps create --spec .do/app.yaml
+# Or: DO control panel → Create → Apps → GitHub → iovmada/ApexWrapLab
+#     (the spec below is picked up automatically).
+
+name: apexwraplab
+region: fra                      # Frankfurt — nearest region to RO
+
+static_sites:
+  - name: preview
+    github:
+      repo: iovmada/ApexWrapLab
+      branch: main
+      deploy_on_push: true       # every push to main redeploys
+
+    source_dir: /
+    index_document: index.html
+
+    # The preview is a single page; WooCommerce links such as
+    # /product/<slug>/ have no static counterpart. Serving index.html for
+    # any unmatched path keeps those from hitting a bare 404.
+    catchall_document: index.html
+
+# Add the domain only AFTER the nameservers point at DigitalOcean and the
+# zone exists under Networking → Domains, otherwise app creation fails.
+# domains:
+#   - domain: apexwraplab.com
+#     type: PRIMARY
+#     zone: apexwraplab.com
