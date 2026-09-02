@@ -8,275 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800;1,900&family=Barlow:wght@400;500;600&family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
-<style>
-/* ---------------------------------------------------------------
-   ApexWrapLab — home
-   Ported from the "Apex Racing Livery Redesign" canvas (Apex Home.dc.html).
-   The canvas ran on a React runtime (support.js) with {{ }} bindings,
-   sc-for/sc-if and style-hover attributes; none of that ships here.
-   Data is expanded inline, hover is real CSS, behaviour is vanilla JS.
-   --------------------------------------------------------------- */
-
-:root{
-  --bg:#08090a; --deep:#0a0b0c; --panel:#0d0f11; --panel2:#12151a;
-  --fg:#f4f6f2; --muted:#8c948c; --ink:#0a0b0a;
-  --acid:#c8ff00; --acid-ink:#c8ff00; --hot:#ff3b14;
-  --line:rgba(255,255,255,.1); --line2:rgba(255,255,255,.18);
-  --headerbg:rgba(8,9,10,.86); --shadow:rgba(0,0,0,.6); --blend:screen;
-  --hover-surface:#12151a; --hover-bg:#f4f6f2; --hover-fg:#0a0b0a;
-  --scrim1:#08090a; --scrim2:rgba(8,9,10,.92); --scrim3:rgba(8,9,10,.35); --scrim4:rgba(8,9,10,.7);
-}
-[data-theme="light"]{
-  --bg:#f1f2ee; --deep:#e6e8e1; --panel:#ffffff; --panel2:#ffffff;
-  --fg:#0b0c0a; --muted:#5f665e;
-  --acid-ink:#4d7300; --hot:#d81f08;
-  --line:rgba(11,12,10,.14); --line2:rgba(11,12,10,.24);
-  --headerbg:rgba(241,242,238,.88); --shadow:rgba(11,12,10,.16); --blend:multiply;
-  --hover-surface:#e9ebe4; --hover-bg:#0b0c0a; --hover-fg:#f4f6f2;
-  --scrim1:#f1f2ee; --scrim2:rgba(241,242,238,.9); --scrim3:rgba(241,242,238,.28); --scrim4:rgba(241,242,238,.66);
-}
-
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);
-  font-family:'Barlow',system-ui,sans-serif;-webkit-font-smoothing:antialiased;
-  transition:background-color .35s ease,color .35s ease;overflow-x:hidden}
-a{color:var(--acid-ink);text-decoration:none}
-::selection{background:var(--acid);color:var(--ink)}
-select,button,input{font-family:inherit}
-img{max-width:100%;display:block}
-
-.cond{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;text-transform:uppercase}
-.mono{font-family:'Chakra Petch',sans-serif;text-transform:uppercase}
-.wrap{max-width:1400px;margin:0 auto;padding-left:40px;padding-right:40px}
-
-/* clipped corner used on every primary action */
-.clip{clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px)}
-.clip-sm{clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
-.clip-md{clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px)}
-
-@keyframes apx-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes apx-pulse{0%,100%{opacity:1}50%{opacity:.35}}
-[data-reveal]{opacity:0;transform:translateY(22px);
-  transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
-[data-reveal].apx-in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){
-  [data-reveal]{opacity:1;transform:none;transition:none}
-  .ticker__track{animation:none}
-  .pulse{animation:none}
-}
-
-/* ---- image slots: a designed gradient shows through if the file is absent -- */
-.slot{position:absolute;inset:0;overflow:hidden;
-  background:linear-gradient(135deg,var(--deep) 0%,var(--panel2) 46%,var(--deep) 100%)}
-.slot::after{content:"";position:absolute;inset:0;
-  background:repeating-linear-gradient(58deg,rgba(200,255,0,.05) 0 22px,rgba(0,0,0,0) 22px 54px)}
-.slot img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover}
-
-/* ---- ticker ---- */
-.ticker{display:flex;align-items:center;background:var(--acid);color:var(--ink);height:34px;overflow:hidden;position:relative}
-.ticker__track{display:flex;width:max-content;animation:apx-marquee 26s linear infinite;will-change:transform}
-.ticker__set{display:flex;align-items:center;gap:34px;flex:none;padding-right:34px;white-space:nowrap;
-  font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase}
-
-/* ---- header ---- */
-.hdr{position:sticky;top:0;z-index:60;background:var(--headerbg);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.hdr__in{max-width:1400px;margin:0 auto;padding:10px 26px;min-height:76px;display:flex;flex-wrap:wrap;align-items:center;column-gap:26px;row-gap:8px}
-.brand{display:flex;align-items:center;gap:10px;color:var(--fg)}
-.brand__mark{display:block;width:14px;height:26px;background:var(--acid);transform:skewX(-14deg)}
-.brand__word{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;font-size:25px;letter-spacing:-.01em;text-transform:uppercase;line-height:1}
-.nav{display:flex;flex-wrap:wrap;align-items:center;column-gap:22px;row-gap:4px;white-space:nowrap;
-  font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase}
-.nav a{color:var(--fg);padding:6px 0;border-bottom:2px solid transparent;transition:border-color .2s ease,color .2s ease}
-.nav a:hover{border-bottom-color:var(--acid-ink);color:var(--acid-ink)}
-.toggles{flex:none;display:flex;align-items:center;gap:4px;border:1px solid var(--line2);padding:4px;
-  font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:11px;letter-spacing:.12em}
-.toggles button{background:transparent;color:var(--muted);border:0;cursor:pointer;padding:7px 11px;font-weight:700;letter-spacing:.14em;transition:background .2s ease,color .2s ease}
-.toggles button[aria-pressed="true"]{background:var(--acid);color:var(--ink)}
-.toggles__sep{width:1px;height:18px;background:var(--line2);margin:0 3px}
-.cart{flex:none;margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--acid);color:var(--ink);
-  padding:13px 18px;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
-  transition:background .2s ease,color .2s ease}
-.cart:hover{background:var(--hover-bg);color:var(--hover-fg)}
-
-/* ---- hero ---- */
-.hero{position:relative;min-height:760px;display:flex;align-items:stretch;background:var(--deep);overflow:hidden}
-.hero__scrim{position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(100deg,var(--scrim1) 0%,var(--scrim2) 38%,var(--scrim3) 68%,var(--scrim4) 100%)}
-.hero__slash{position:absolute;top:0;bottom:0;left:52%;width:2px;background:var(--acid);transform:skewX(-14deg);opacity:.9;pointer-events:none}
-.hero__slash2{position:absolute;top:0;bottom:0;left:54.5%;width:8px;background:var(--acid);transform:skewX(-14deg);opacity:.16;pointer-events:none}
-.hero__in{position:relative;max-width:1400px;margin:0 auto;padding:104px 40px 0;width:100%;pointer-events:none}
-.hero__col{max-width:720px;display:flex;flex-direction:column;gap:26px;align-items:flex-start}
-.eyebrow{display:flex;align-items:center;gap:12px;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:11.5px;
-  letter-spacing:.24em;text-transform:uppercase;color:var(--acid-ink)}
-.pulse{display:block;width:8px;height:8px;background:var(--acid);animation:apx-pulse 1.7s ease-in-out infinite}
-.hero h1{margin:0;font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;text-transform:uppercase;
-  font-size:clamp(64px,9vw,138px);line-height:.84;letter-spacing:-.022em;text-wrap:balance}
-.hero h1 span{display:block}
-.hero h1 .acid{color:var(--acid-ink)}
-.hero h1 .sub{font-size:.42em;font-weight:800;letter-spacing:.01em;color:var(--fg);padding-top:14px}
-.hero p{margin:0;max-width:470px;font-size:18.5px;line-height:1.5;color:#9AA39A;text-wrap:pretty}
-.btns{display:flex;gap:14px;flex-wrap:wrap;padding-top:4px;pointer-events:auto}
-.btn{display:block;padding:20px 34px;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:13px;
-  letter-spacing:.18em;text-transform:uppercase;transition:background .2s ease,color .2s ease,border-color .2s ease}
-.btn--acid{background:var(--acid);color:var(--ink)}
-.btn--acid:hover{background:var(--hover-bg);color:var(--hover-fg)}
-.btn--ghost{border:1px solid var(--line2);color:var(--fg)}
-.btn--ghost:hover{border-color:var(--acid-ink);color:var(--acid-ink)}
-.hero__stats{position:absolute;right:40px;bottom:150px;display:flex;flex-direction:column;
-  border-left:2px solid var(--acid);padding-left:20px;pointer-events:none}
-.hero__stat{padding:12px 0}
-.hero__stat b{display:block;font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;font-size:44px;line-height:.9;color:var(--fg)}
-.hero__stat span{font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-@media (max-width:1100px){.hero__stats{display:none}}
-
-/* ---- fit finder ---- */
-.finder{position:relative;z-index:20;margin-top:-64px}
-.finder__card{background:var(--panel2);border:1px solid var(--line);border-top:3px solid var(--acid);
-  padding:26px 30px;display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap;box-shadow:0 30px 70px var(--shadow)}
-.finder__lead{flex:none;padding-right:14px;border-right:1px solid var(--line);margin-right:6px}
-.finder__lead .k{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--acid-ink)}
-.finder__lead .t{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;font-size:31px;line-height:1.05;text-transform:uppercase}
-.field{flex:1;min-width:170px;display:block}
-.field span{display:block;font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:10px;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--muted);padding-bottom:8px}
-.field select{width:100%;background:var(--deep);color:var(--fg);border:1px solid var(--line2);padding:14px 12px;
-  font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:13px;letter-spacing:.06em;appearance:none;cursor:pointer}
-.field select:focus-visible{outline:2px solid var(--acid);outline-offset:1px}
-.finder__go{flex:none;background:var(--acid);color:var(--ink);border:0;cursor:pointer;padding:16px 30px;
-  font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;
-  transition:background .2s ease,color .2s ease}
-.finder__go:hover{background:var(--hover-bg);color:var(--hover-fg)}
-.finder__line{display:flex;align-items:center;gap:10px;padding:12px 4px;font-family:'Chakra Petch',sans-serif;
-  font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.finder__line .tick{color:var(--acid-ink)}
-
-/* ---- section heads ---- */
-.head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);padding-bottom:22px}
-.head .k{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--acid-ink);padding-bottom:8px}
-.head h2{margin:0;font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;
-  font-size:clamp(40px,5vw,74px);line-height:.9;text-transform:uppercase;letter-spacing:-.015em}
-.head__link{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:12px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--fg);border-bottom:2px solid var(--acid);padding-bottom:4px;transition:color .2s ease}
-.head__link:hover{color:var(--acid-ink)}
-.head__meta{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-
-/* ---- kit cards ---- */
-.kits{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2px;padding-top:2px}
-.kit{position:relative;background:var(--panel);overflow:hidden;cursor:pointer;transition:background .25s ease}
-.kit:hover{background:var(--hover-surface)}
-.kit__shot{position:relative;height:300px;overflow:hidden;background:var(--deep)}
-.kit__livery{position:absolute;inset:0;opacity:.2;mix-blend-mode:var(--blend);transition:opacity .45s ease;z-index:2}
-.kit:hover .kit__livery{opacity:.72}
-.kit__rule{position:absolute;left:0;right:0;bottom:0;height:5px;z-index:3}
-.kit__hot{position:absolute;top:0;left:0;z-index:4;background:var(--hot);color:#F7F8F4;padding:7px 16px 7px 12px;
-  font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
-  clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%)}
-.kit__style{position:absolute;top:14px;right:14px;z-index:4;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:10px;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--ink);background:var(--acid);padding:5px 9px;pointer-events:none}
-.kit__body{padding:22px 22px 26px;display:flex;flex-direction:column;gap:14px}
-.kit__cat{font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-.kit__body h3{margin:0;font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;font-size:30px;line-height:.98;text-transform:uppercase}
-.kit__foot{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:14px}
-.kit__price{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:20px;letter-spacing:.01em}
-.kit__cta{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--acid-ink)}
-
-/* ---- category strip ---- */
-.cats{display:flex;flex-wrap:wrap;gap:2px;padding-top:2px}
-.cat{flex:1 1 200px;display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--panel);
-  padding:24px 22px;color:var(--fg);transition:background .2s ease,color .2s ease}
-.cat:hover{background:var(--acid);color:var(--ink)}
-.cat b{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;font-size:22px;text-transform:uppercase;line-height:1}
-.cat span{font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:11px;letter-spacing:.14em;opacity:.55}
-
-/* ---- configurator ---- */
-.cfg{display:grid;grid-template-columns:minmax(320px,1fr) minmax(340px,.85fr);gap:2px;background:var(--line);border-top:3px solid var(--acid)}
-@media (max-width:860px){.cfg{grid-template-columns:1fr}}
-.cfg__stage{position:relative;background:var(--deep);min-height:520px;overflow:hidden}
-.cfg__overlay{position:absolute;inset:0;pointer-events:none;z-index:2;transition:opacity .3s ease}
-.cfg__badge{position:absolute;left:0;bottom:0;z-index:3;background:var(--deep);border-top:1px solid var(--line2);
-  border-right:1px solid var(--line2);padding:16px 22px;pointer-events:none}
-.cfg__badge .k{font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-.cfg__badge .t{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;font-size:26px;text-transform:uppercase;line-height:1.1}
-.cfg__panel{background:var(--panel);padding:40px 38px;display:flex;flex-direction:column;gap:26px}
-.cfg__panel h2{margin:0;font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;
-  font-size:clamp(36px,4vw,58px);line-height:.88;text-transform:uppercase;letter-spacing:-.015em}
-.group{display:flex;flex-direction:column;gap:10px}
-.group>span{font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-.sw{display:flex;gap:10px;flex-wrap:wrap}
-.sw button{width:44px;height:44px;border:2px solid var(--line2);cursor:pointer;padding:0;
-  transform:skewX(-10deg);transition:transform .2s ease,border-color .2s ease}
-.sw button[aria-pressed="true"]{border-color:var(--fg);transform:skewX(-10deg) scale(1.06)}
-.seg{display:flex;gap:2px;flex-wrap:wrap;background:var(--line);padding:1px}
-.seg button{flex:1 0 auto;background:var(--deep);color:var(--muted);border:0;cursor:pointer;padding:13px 16px;
-  font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
-  transition:background .2s ease,color .2s ease}
-.seg button[aria-pressed="true"]{background:var(--acid);color:var(--ink)}
-.cfg__foot{margin-top:auto;border-top:1px solid var(--line);padding-top:22px;display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap}
-.cfg__price{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;font-size:46px;line-height:1;color:var(--acid-ink)}
-.cfg__cta{flex:1;min-width:190px;text-align:center;background:var(--acid);color:var(--ink);padding:20px 26px;
-  font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;
-  transition:background .2s ease,color .2s ease}
-.cfg__cta:hover{background:var(--hover-bg);color:var(--hover-fg)}
-
-/* ---- specs ---- */
-.specs{display:flex;flex-wrap:wrap;gap:2px}
-.spec{flex:1 1 260px;background:var(--panel);padding:34px 26px;display:flex;flex-direction:column;gap:12px;
-  border-top:2px solid transparent;transition:border-color .2s ease,background .2s ease}
-.spec:hover{border-top-color:var(--acid);background:var(--hover-surface)}
-.spec .k{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;font-size:52px;line-height:.9;color:var(--acid-ink)}
-.spec .t{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase}
-.spec .d{font-size:15px;line-height:1.45;color:var(--muted);text-wrap:pretty}
-
-/* ---- reviews ---- */
-.reviews{display:flex;flex-wrap:wrap;gap:2px;padding-top:2px}
-.review{flex:1 1 300px;margin:0;background:var(--panel);padding:34px 28px;display:flex;flex-direction:column;gap:18px}
-.review .stars{display:flex;gap:3px;color:var(--acid-ink);font-size:14px;letter-spacing:.2em}
-.review blockquote{margin:0;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:24px;line-height:1.2;text-wrap:pretty}
-.review figcaption{margin-top:auto;font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-
-/* ---- gallery ---- */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:2px}
-.grid__cell{position:relative;aspect-ratio:1;max-height:280px;background:var(--deep)}
-
-/* ---- closing CTA ---- */
-.cta{position:relative;background:var(--acid);color:var(--ink);padding:64px 50px;display:flex;align-items:center;
-  justify-content:space-between;gap:34px;flex-wrap:wrap;overflow:hidden;
-  clip-path:polygon(26px 0,100% 0,100% calc(100% - 26px),calc(100% - 26px) 100%,0 100%,0 26px)}
-.cta__skew{position:absolute;top:0;bottom:0;right:-40px;width:220px;background:rgba(10,11,10,.08);transform:skewX(-14deg)}
-.cta .k{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:11px;letter-spacing:.24em;text-transform:uppercase;opacity:.65}
-.cta .t{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-weight:900;font-size:clamp(38px,5vw,66px);
-  line-height:.9;text-transform:uppercase;letter-spacing:-.02em;padding-top:8px}
-.cta__btn{position:relative;background:var(--ink);color:#C8FF00;padding:22px 38px;font-family:'Chakra Petch',sans-serif;
-  font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase;transition:background .2s ease,color .2s ease}
-.cta__btn:hover{background:var(--hover-bg);color:var(--hover-fg)}
-
-/* ---- footer ---- */
-.ft{margin-top:96px;border-top:1px solid var(--line);background:var(--deep)}
-.ft__in{max-width:1400px;margin:0 auto;padding:56px 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:38px}
-.ft__col{display:flex;flex-direction:column;gap:12px}
-.ft__h{font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--acid-ink)}
-.ft__col a{color:var(--fg);font-size:15px;transition:color .2s ease}
-.ft__col a:hover{color:var(--acid-ink)}
-.ft p{margin:0;font-size:15px;line-height:1.5;color:var(--muted);text-wrap:pretty}
-.ft__sub{display:flex;gap:2px;background:var(--line2);padding:1px}
-.ft__sub input{flex:1;min-width:0;background:var(--panel);border:0;color:var(--fg);padding:14px;font-size:14px;outline:none}
-.ft__sub button{background:var(--acid);color:var(--ink);border:0;cursor:pointer;padding:0 18px;
-  font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
-  transition:background .2s ease,color .2s ease}
-.ft__sub button:hover{background:var(--hover-bg);color:var(--hover-fg)}
-.ft__bar{border-top:1px solid var(--line)}
-.ft__bar div{max-width:1400px;margin:0 auto;padding:22px 40px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
-  font-family:'Chakra Petch',sans-serif;font-weight:500;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-
-@media (max-width:640px){
-  .wrap,.hero__in{padding-left:20px;padding-right:20px}
-  .hdr__in{padding:10px 16px}
-  .cart{margin-left:0}
-  .cfg__panel{padding:28px 22px}
-  .cta{padding:40px 26px}
-  .ft__in,.ft__bar div{padding-left:20px;padding-right:20px}
-}
-</style>
+<link rel="stylesheet" href="apex.css">
 </head>
 <body>
 
@@ -306,7 +38,7 @@ img{max-width:100%;display:block}
       <span class="brand__word">Apex<span style="color:var(--acid-ink)">Wrap</span>Lab</span>
     </a>
     <nav class="nav" aria-label="Primary">
-      <a href="#kits" data-ro="Magazin">Shop</a>
+      <a href="shop.html" data-ro="Magazin">Shop</a>
       <a href="#custom" data-ro="Wrap personalizat">Custom wraps</a>
       <a href="#grid" data-ro="Galerie">Gallery</a>
       <a href="#spec" data-ro="Despre">About</a>
@@ -382,7 +114,7 @@ img{max-width:100%;display:block}
       <div class="k" data-ro="01 — Livrele">01 — Liveries</div>
       <h2 data-ro="Kituri de top">Featured kits</h2>
     </div>
-    <a href="#kits" class="head__link" data-ro="Vezi toate (10)">View all (10)</a>
+    <a href="shop.html" class="head__link" data-ro="Vezi toate (10)">View all (10)</a>
   </div>
 
   <div class="kits">
@@ -459,11 +191,11 @@ img{max-width:100%;display:block}
   </div>
 
   <div class="cats" data-reveal>
-    <a href="#kits" class="cat"><b data-ro="Wrap ATV">ATV wraps</b><span>02</span></a>
-    <a href="#kits" class="cat"><b>Enduro &amp; MX</b><span>03</span></a>
-    <a href="#kits" class="cat"><b data-ro="Motociclete stradă">Street bikes</b><span>02</span></a>
-    <a href="#kits" class="cat"><b>Snowboard</b><span>01</span></a>
-    <a href="#kits" class="cat"><b data-ro="Scule">Tools</b><span>02</span></a>
+    <a href="shop.html" class="cat"><b data-ro="Wrap ATV">ATV wraps</b><span>02</span></a>
+    <a href="shop.html" class="cat"><b>Enduro &amp; MX</b><span>03</span></a>
+    <a href="shop.html" class="cat"><b data-ro="Motociclete stradă">Street bikes</b><span>02</span></a>
+    <a href="shop.html" class="cat"><b>Snowboard</b><span>01</span></a>
+    <a href="shop.html" class="cat"><b data-ro="Scule">Tools</b><span>02</span></a>
   </div>
 </section>
 
@@ -566,10 +298,10 @@ img{max-width:100%;display:block}
     </div>
     <div class="ft__col">
       <div class="ft__h" data-ro="Magazin">Shop</div>
-      <a href="#kits" data-ro="Wrap ATV">ATV wraps</a>
-      <a href="#kits">Enduro &amp; MX</a>
-      <a href="#kits" data-ro="Motociclete stradă">Street bikes</a>
-      <a href="#kits" data-ro="Wrap snowboard">Snowboard wraps</a>
+      <a href="shop.html" data-ro="Wrap ATV">ATV wraps</a>
+      <a href="shop.html">Enduro &amp; MX</a>
+      <a href="shop.html" data-ro="Motociclete stradă">Street bikes</a>
+      <a href="shop.html" data-ro="Wrap snowboard">Snowboard wraps</a>
     </div>
     <div class="ft__col">
       <div class="ft__h" data-ro="Ajutor">Support</div>

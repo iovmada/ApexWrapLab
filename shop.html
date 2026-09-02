@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All wrap kits — ApexWrapLab</title>
+<meta name="description" content="Every ApexWrapLab kit is digitally cut to your exact model. 3M cast film, guaranteed fitment, dispatched in 48 hours.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800;1,900&family=Barlow:wght@400;500;600&family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="apex.css">
+</head>
+<body>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <div class="ticker__set">
+      <span data-ro="Livrare gratuită peste 350 lei">Free shipping over lei350</span><span>/</span>
+      <span>3M IJ180Cv3 cast film</span><span>/</span>
+      <span data-ro="Potrivire garantată sau bani înapoi">Fitment guaranteed or money back</span><span>/</span>
+      <span data-ro="Expediere în 48h">Ships in 48h</span><span>/</span>
+    </div>
+    <div class="ticker__set">
+      <span data-ro="Livrare gratuită peste 350 lei">Free shipping over lei350</span><span>/</span>
+      <span>3M IJ180Cv3 cast film</span><span>/</span>
+      <span data-ro="Potrivire garantată sau bani înapoi">Fitment guaranteed or money back</span><span>/</span>
+      <span data-ro="Expediere în 48h">Ships in 48h</span><span>/</span>
+    </div>
+  </div>
+</div>
+
+<header class="hdr">
+  <div class="hdr__in">
+    <a href="index.html" class="brand" rel="home">
+      <span class="brand__mark"></span>
+      <span class="brand__word">Apex<span style="color:var(--acid-ink)">Wrap</span>Lab</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#shop" class="is-active" aria-current="page" data-ro="Magazin">Shop</a>
+      <a href="index.html#custom" data-ro="Wrap personalizat">Custom wraps</a>
+      <a href="index.html#grid" data-ro="Galerie">Gallery</a>
+      <a href="index.html#spec" data-ro="Despre">About</a>
+    </nav>
+    <div style="flex:1"></div>
+    <div class="toggles">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="ro" aria-pressed="false">RO</button>
+      <span class="toggles__sep"></span>
+      <button type="button" data-theme-set="dark" title="Dark theme" aria-pressed="true">D</button>
+      <button type="button" data-theme-set="light" title="Light theme" aria-pressed="false">L</button>
+    </div>
+    <a href="#shop" class="cart clip-sm">
+      <span data-ro="Coș">Cart</span><span style="opacity:.5">/</span><span id="cartCount">0</span>
+    </a>
+  </div>
+</header>
+
+<section class="shop__head">
+  <div class="shop__head-in">
+    <div>
+      <div class="crumbs">
+        <a href="index.html" data-ro="Acasă">Home</a>
+        <span>/</span>
+        <span class="now" data-ro="Toate kiturile">All kits</span>
+      </div>
+      <h1 data-ro="Toate kiturile">All wrap kits</h1>
+    </div>
+    <p data-ro="Fiecare kit este tăiat digital pentru modelul tău. 3M turnat, potrivire garantată, expediere în 48h.">Every kit is digitally cut to your exact model. 3M cast film, guaranteed fitment, dispatched in 48 hours.</p>
+  </div>
+</section>
+
+<section id="shop" class="shop">
+  <aside class="filters">
+    <div class="filters__top">
+      <span data-ro="Filtre">Filters</span>
+      <button type="button" class="filters__clear" id="clearAll" data-ro="Șterge tot">Clear all</button>
+    </div>
+
+    <div class="fgroup">
+      <span data-ro="Tip vehicul">Vehicle type</span>
+      <div id="fType"></div>
+    </div>
+
+    <div class="fgroup">
+      <span data-ro="Potrivire">Fitment</span>
+      <select class="fselect" id="fMake" aria-label="Brand"></select>
+      <select class="fselect" id="fModel" aria-label="Model"></select>
+    </div>
+
+    <div class="fgroup">
+      <span data-ro="Culoare">Colourway</span>
+      <div class="fsw" id="fColor" role="group"></div>
+    </div>
+
+    <div class="fgroup">
+      <span data-ro="Grafică">Graphic style</span>
+      <div id="fStyle"></div>
+    </div>
+
+    <div class="fgroup">
+      <span data-ro="Finisaj">Finish</span>
+      <div class="fseg" id="fFinish" role="group"></div>
+    </div>
+  </aside>
+
+  <div class="results">
+    <div class="results__bar">
+      <div class="results__count" id="resultLine"></div>
+      <div class="chips" id="chips"></div>
+    </div>
+    <div class="shopgrid" id="grid"></div>
+    <div class="empty" id="empty" hidden>
+      <div class="empty__t" data-ro="Niciun kit nu se potrivește">No kits match that</div>
+      <p data-ro="Slăbește filtrele — sau cere un design personalizat pentru motocicleta ta.">Loosen the filters — or have us cut a custom design for your bike.</p>
+      <button type="button" id="resetFilters" data-ro="Resetează filtrele">Reset filters</button>
+    </div>
+  </div>
+</section>
+
+<div class="drawer" id="drawer" hidden role="dialog" aria-modal="true" aria-labelledby="drawerName">
+  <button type="button" class="drawer__scrim" id="drawerScrim" aria-label="Close"></button>
+  <div class="drawer__panel">
+    <button type="button" class="drawer__close" id="drawerClose" aria-label="Close">✕</button>
+    <div class="drawer__shot">
+      <div class="slot" id="drawerSlot"></div>
+      <div class="drawer__accent" id="drawerAccent"></div>
+    </div>
+    <div class="drawer__body">
+      <div>
+        <div class="drawer__cat" id="drawerCat"></div>
+        <h2 id="drawerName"></h2>
+      </div>
+      <p class="drawer__desc" id="drawerDesc"></p>
+      <div class="dspecs" id="drawerSpecs"></div>
+      <div class="group">
+        <span style="font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)" data-ro="Finisaj">Finish</span>
+        <div class="fseg" id="drawerFinish" role="group"></div>
+      </div>
+      <div class="drawer__foot">
+        <div>
+          <div style="font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)" data-ro="Total">Total</div>
+          <div class="drawer__price" id="drawerPrice"></div>
+        </div>
+        <button type="button" class="drawer__add clip-md" id="addToCart"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="ft--slim">
+  <div>
+    <span>© 2026 ApexWrapLab · Cluj-Napoca, RO</span>
+    <a href="index.html" data-ro="← Înapoi acasă">← Back to home</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---- data, lifted verbatim from Apex Shop.dc.html DCLogic ---- */
+  var MODELS = {
+    'Any brand': ['Any model'],
+    'Can-Am': ['Any model', 'Outlander 650', 'Renegade 1000'],
+    'Honda': ['Any model', 'CRF 250R', 'CBR 650R', 'TRX 450R'],
+    'Husqvarna': ['Any model', 'FC 250', 'TE 300'],
+    'KTM': ['Any model', 'SX-F 250', 'EXC 300', 'Duke 890'],
+    'Yamaha': ['Any model', 'YZ 450F', 'MT-07', 'Raptor 700']
+  };
+  var MAKES = ['Any brand', 'Can-Am', 'Honda', 'Husqvarna', 'KTM', 'Yamaha'];
+
+  var COLORS = [
+    { n: 'Volt', hex: '#C8FF00' }, { n: 'Podium Yellow', hex: '#FFD400' },
+    { n: 'Crimson', hex: '#E01B2E' }, { n: 'Ice Blue', hex: '#2FC7FF' },
+    { n: 'Stealth', hex: '#3A3F44' }, { n: 'Field Green', hex: '#6F8A4A' }
+  ];
+
+  var FINISHES = [{ n: 'Gloss', ro: 'Lucios', add: 0 }, { n: 'Matte', ro: 'Mat', add: 30 }, { n: 'Carbon', ro: 'Carbon', add: 60 }];
+
+  var KITS = [
+    { id:'k1', name:'Apex Predator', cat:'ATV Wraps', type:'ATV', style:'Racing', color:'Volt', base:269, hot:true, img:'images/kit-apex-predator.png', makes:['Can-Am','Yamaha'], a:'linear-gradient(115deg,rgba(200,255,0,.85) 0%,rgba(200,255,0,0) 52%,rgba(255,59,20,.75) 100%)', b:'#C8FF00', d:'Aggressive forward-sweep livery built for quad bodywork. Deep-relief panels included for fenders and airbox.' },
+    { id:'k2', name:'Factory Replica', cat:'Enduro & MX', type:'MX', style:'Racing', color:'Podium Yellow', base:259, hot:true, img:'images/kit-factory-replica.png', makes:['KTM','Husqvarna','Honda'], a:'linear-gradient(115deg,rgba(255,212,0,.8) 0%,rgba(255,212,0,0) 48%,rgba(47,199,255,.6) 100%)', b:'#FFD400', d:'Works-team layout with shroud, tank and fender coverage. Number-plate backgrounds included.' },
+    { id:'k3', name:'Crimson Stealth', cat:'Street Bikes', type:'Street', style:'Minimal', color:'Crimson', base:289, hot:true, img:'images/kit-crimson-stealth.png', makes:['Yamaha','Honda','KTM'], a:'linear-gradient(115deg,rgba(224,27,46,.9) 0%,rgba(224,27,46,0) 55%,rgba(58,63,68,.8) 100%)', b:'#E01B2E', d:'Single-sweep split with a matte body and gloss accent. Reads clean at a standstill, vicious at speed.' },
+    { id:'k4', name:'Volt Surge', cat:'ATV Wraps', type:'ATV', style:'Geometric', color:'Ice Blue', base:279, hot:false, img:'images/kit-volt-surge.png', makes:['Can-Am','Yamaha'], a:'linear-gradient(115deg,rgba(47,199,255,.75) 0%,rgba(47,199,255,0) 50%,rgba(200,255,0,.8) 100%)', b:'#2FC7FF', d:'Hard-edged shard geometry that wraps continuously across every panel seam.' },
+    { id:'k5', name:'Night Shift', cat:'Street Bikes', type:'Street', style:'Minimal', color:'Stealth', base:299, hot:false, img:'images/kit-night-shift.png', makes:['Yamaha','Honda'], a:'linear-gradient(115deg,rgba(58,63,68,.9) 0%,rgba(58,63,68,0) 60%,rgba(20,24,28,.8) 100%)', b:'#3A3F44', d:'Murdered-out satin body with a single raised waistline. Our most requested street finish.' },
+    { id:'k6', name:'Glacier Geo', cat:'Snowboard', type:'Board', style:'Geometric', color:'Ice Blue', base:189, hot:false, img:'images/kit-glacier-geo.png', makes:['Any brand'], a:'linear-gradient(115deg,rgba(47,199,255,.85) 0%,rgba(47,199,255,0) 55%,rgba(244,246,242,.6) 100%)', b:'#2FC7FF', d:'Full topsheet coverage cut to board outline. Cold-rated adhesive down to -25°C.' },
+    { id:'k7', name:'Podium Strike', cat:'Enduro & MX', type:'MX', style:'Racing', color:'Podium Yellow', base:259, hot:false, img:'images/kit-podium-strike.png', makes:['KTM','Husqvarna'], a:'linear-gradient(115deg,rgba(255,212,0,.85) 0%,rgba(255,212,0,0) 52%,rgba(15,18,21,.8) 100%)', b:'#FFD400', d:'High-contrast strike bands with pre-cut fork-guard and swingarm sections.' },
+    { id:'k8', name:'Forest Camo', cat:'ATV Wraps', type:'ATV', style:'Camo', color:'Field Green', base:249, hot:false, img:'images/kit-forest-camo.png', makes:['Can-Am','Honda','Yamaha'], a:'linear-gradient(115deg,rgba(111,138,74,.85) 0%,rgba(111,138,74,0) 55%,rgba(30,38,26,.8) 100%)', b:'#6F8A4A', d:'Four-tone woodland pattern with no repeating tile across the kit. Built for hunting rigs.' },
+    { id:'k9', name:'Carbon Edge', cat:'Street Bikes', type:'Street', style:'Geometric', color:'Stealth', base:319, hot:false, img:'images/kit-carbon-edge.png', makes:['Yamaha','Honda','KTM'], a:'linear-gradient(115deg,rgba(32,38,43,.9) 0%,rgba(32,38,43,0) 52%,rgba(200,255,0,.7) 100%)', b:'#20262B', d:'Textured carbon base with acid edge-lining. Ships only in the carbon finish laminate.' }
+  ];
+
+  var state = {
+    lang: 'en', theme: 'dark',
+    type: 'All', make: 'Any brand', model: 'Any model', color: null, gstyle: 'All',
+    finish: 'All', open: null, drawerFinish: 'Gloss', cart: 0, added: false
+  };
+
+  var $ = function (s) { return document.querySelector(s); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) {
+    return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); };
+
+  /* matches(), verbatim from the canvas — `ignore` lets a facet count itself out */
+  function matches(k, ignore) {
+    if (ignore !== 'type' && state.type !== 'All' && k.type !== state.type) return false;
+    if (ignore !== 'make' && String(state.make).indexOf('Any') !== 0 && k.makes.indexOf(state.make) < 0) return false;
+    if (ignore !== 'color' && state.color && k.color !== state.color) return false;
+    if (ignore !== 'gstyle' && state.gstyle !== 'All' && k.style !== state.gstyle) return false;
+    if (ignore !== 'finish' && state.finish === 'Carbon' && k.id !== 'k9') return false;
+    return true;
+  }
+
+  function countIf(key, val) {
+    return KITS.filter(function (k) {
+      if (!matches(k, key)) return false;
+      if (key === 'type') return val === 'All' || k.type === val;
+      if (key === 'gstyle') return val === 'All' || k.style === val;
+      return true;
+    }).length;
+  }
+
+  function slot(img, alt) {
+    return '<div class="slot"><img src="' + img + '" alt="' + esc(alt) + '" loading="lazy" onerror="this.remove()"></div>';
+  }
+
+  function render() {
+    var ro = state.lang === 'ro';
+    var visible = KITS.filter(function (k) { return matches(k); });
+
+    /* --- facets --- */
+    var typeOpts = [
+      { n: ro ? 'Toate' : 'All kits', v: 'All' }, { n: 'ATV', v: 'ATV' },
+      { n: 'Enduro & MX', v: 'MX' }, { n: ro ? 'Stradă' : 'Street', v: 'Street' },
+      { n: 'Snowboard', v: 'Board' }
+    ];
+    $('#fType').innerHTML = typeOpts.map(function (o) {
+      return '<button type="button" class="frow" data-type="' + o.v + '" aria-pressed="' + (state.type === o.v) + '">' +
+             '<span>' + esc(o.n) + '</span><span>' + countIf('type', o.v) + '</span></button>';
+    }).join('');
+
+    var styleOpts = [
+      { n: ro ? 'Toate' : 'All styles', v: 'All' }, { n: 'Racing', v: 'Racing' },
+      { n: 'Geometric', v: 'Geometric' }, { n: 'Camo', v: 'Camo' }, { n: 'Minimal', v: 'Minimal' }
+    ];
+    $('#fStyle').innerHTML = styleOpts.map(function (o) {
+      return '<button type="button" class="frow" data-gstyle="' + o.v + '" aria-pressed="' + (state.gstyle === o.v) + '">' +
+             '<span>' + esc(o.n) + '</span><span>' + countIf('gstyle', o.v) + '</span></button>';
+    }).join('');
+
+    $('#fColor').innerHTML = COLORS.map(function (c) {
+      return '<button type="button" title="' + esc(c.n) + '" aria-label="' + esc(c.n) + '" data-color="' + esc(c.n) + '"' +
+             ' aria-pressed="' + (state.color === c.n) + '" style="background:' + c.hex + '"></button>';
+    }).join('');
+
+    $('#fFinish').innerHTML = ['All', 'Gloss', 'Matte', 'Carbon'].map(function (f) {
+      var label = f === 'All' ? (ro ? 'Toate' : 'All') : f;
+      return '<button type="button" data-finish="' + f + '" aria-pressed="' + (state.finish === f) + '">' + label + '</button>';
+    }).join('');
+
+    /* --- chips --- */
+    var chips = [];
+    if (state.type !== 'All') chips.push({ n: state.type, k: 'type' });
+    if (String(state.make).indexOf('Any') !== 0) {
+      chips.push({ n: state.make + (String(state.model).indexOf('Any') === 0 ? '' : ' ' + state.model), k: 'make' });
+    }
+    if (state.color) chips.push({ n: state.color, k: 'color' });
+    if (state.gstyle !== 'All') chips.push({ n: state.gstyle, k: 'gstyle' });
+    if (state.finish !== 'All') chips.push({ n: state.finish, k: 'finish' });
+    $('#chips').innerHTML = chips.map(function (c) {
+      return '<button type="button" class="chip" data-clear="' + c.k + '"><span>' + esc(c.n) + '</span><span>✕</span></button>';
+    }).join('');
+
+    /* --- results --- */
+    $('#resultLine').textContent = ro
+      ? visible.length + ' din ' + KITS.length + ' kituri'
+      : visible.length + ' of ' + KITS.length + ' kits';
+
+    $('#grid').innerHTML = visible.map(function (k) {
+      return '<article class="kit" data-open="' + k.id + '">' +
+        '<div class="kit__shot">' + slot(k.img, k.name) +
+          '<div class="kit__livery" style="background:' + k.a + '"></div>' +
+          '<div class="kit__rule" style="background:' + k.b + '"></div>' +
+          (k.hot ? '<div class="kit__hot">Hot</div>' : '') +
+          '<div class="kit__style">' + esc(k.style) + '</div>' +
+        '</div>' +
+        '<div class="kit__body">' +
+          '<div class="kit__cat">' + esc(k.cat) + '</div>' +
+          '<h3>' + esc(k.name) + '</h3>' +
+          '<div class="kit__foot">' +
+            '<span class="kit__price">lei' + k.base + ' – lei' + (k.base + 90) + '</span>' +
+            '<span class="kit__cta">' + (ro ? 'Vizualizare rapidă →' : 'Quick view →') + '</span>' +
+          '</div>' +
+        '</div></article>';
+    }).join('');
+
+    $('#grid').hidden = visible.length === 0;
+    $('#empty').hidden = visible.length !== 0;
+
+    $('#cartCount').textContent = state.cart;
+    renderDrawer();
+  }
+
+  function renderDrawer() {
+    var ro = state.lang === 'ro';
+    var k = KITS.filter(function (x) { return x.id === state.open; })[0];
+    var d = $('#drawer');
+    if (!k) { d.hidden = true; return; }
+    d.hidden = false;
+
+    var fin = FINISHES.filter(function (f) { return f.n === state.drawerFinish; })[0] || FINISHES[0];
+    $('#drawerSlot').innerHTML = '<img src="' + k.img + '" alt="' + esc(k.name) + '" onerror="this.remove()">';
+    $('#drawerAccent').style.background = k.b;
+    $('#drawerCat').textContent = k.cat;
+    $('#drawerName').textContent = k.name;
+    $('#drawerDesc').textContent = k.d;
+
+    var specs = [
+      { k: 'Material', v: '3M IJ180Cv3' },
+      { k: ro ? 'Laminat' : 'Overlaminate', v: '3M 8518 ' + state.drawerFinish },
+      { k: ro ? 'Potrivire' : 'Fitment', v: k.makes.join(', ') },
+      { k: ro ? 'Montaj' : 'Install', v: ro ? '~2 ore, uscat' : '~2 hours, dry' },
+      { k: ro ? 'Garanție' : 'Warranty', v: ro ? '5 ani UV' : '5-year UV' }
+    ];
+    $('#drawerSpecs').innerHTML = specs.map(function (s) {
+      return '<div class="dspec"><span class="k">' + esc(s.k) + '</span><span class="v">' + esc(s.v) + '</span></div>';
+    }).join('');
+
+    $('#drawerFinish').innerHTML = FINISHES.map(function (f) {
+      return '<button type="button" data-dfinish="' + f.n + '" aria-pressed="' + (state.drawerFinish === f.n) + '">' +
+             (ro ? f.ro : f.n) + '</button>';
+    }).join('');
+
+    $('#drawerPrice').textContent = 'lei' + (k.base + fin.add);
+    $('#addToCart').textContent = state.added ? (ro ? 'Adăugat ✓' : 'Added ✓') : (ro ? 'Adaugă în coș' : 'Add to cart');
+  }
+
+  function fillSelects() {
+    $('#fMake').innerHTML = MAKES.map(function (m) {
+      return '<option value="' + m + '"' + (m === state.make ? ' selected' : '') + '>' + m + '</option>';
+    }).join('');
+    var models = MODELS[state.make] || ['Any model'];
+    $('#fModel').innerHTML = models.map(function (m) {
+      return '<option value="' + m + '"' + (m === state.model ? ' selected' : '') + '>' + m + '</option>';
+    }).join('');
+  }
+
+  function clearAll() {
+    state.type = 'All'; state.make = 'Any brand'; state.model = 'Any model';
+    state.color = null; state.gstyle = 'All'; state.finish = 'All';
+    fillSelects(); render();
+  }
+
+  /* ---- language / theme, shared behaviour with the home page ---- */
+  function applyLang() {
+    var ro = state.lang === 'ro';
+    document.documentElement.lang = ro ? 'ro' : 'en';
+    var els = document.querySelectorAll('[data-ro]');
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      if (!el.dataset.enCache) el.dataset.enCache = el.innerHTML;
+      var want = ro ? el.getAttribute('data-ro') : el.dataset.enCache;
+      if (el.innerHTML !== want) el.innerHTML = want;
+    }
+    render();
+  }
+
+  function syncToggles() {
+    document.querySelectorAll('[data-lang]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.lang === state.lang));
+    });
+    document.querySelectorAll('[data-theme-set]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.themeSet === state.theme));
+    });
+    document.documentElement.setAttribute('data-theme', state.theme);
+  }
+
+  function restore() {
+    try {
+      var s = JSON.parse(localStorage.getItem('apx') || '{}');
+      if (s.lang === 'ro' || s.lang === 'en') state.lang = s.lang;
+      if (s.theme === 'light' || s.theme === 'dark') state.theme = s.theme;
+    } catch (e) {}
+  }
+
+  /* ---- events ---- */
+  document.querySelector('.toggles').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.lang) { state.lang = b.dataset.lang; syncToggles(); applyLang(); }
+    else if (b.dataset.themeSet) { state.theme = b.dataset.themeSet; syncToggles(); }
+    try { localStorage.setItem('apx', JSON.stringify({ lang: state.lang, theme: state.theme })); } catch (err) {}
+  });
+
+  document.querySelector('.filters').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.id === 'clearAll') return clearAll();
+    if (b.dataset.type !== undefined) { state.type = b.dataset.type; state.open = null; }
+    else if (b.dataset.gstyle !== undefined) { state.gstyle = b.dataset.gstyle; state.open = null; }
+    else if (b.dataset.color !== undefined) { state.color = state.color === b.dataset.color ? null : b.dataset.color; }
+    else if (b.dataset.finish !== undefined) { state.finish = b.dataset.finish; }
+    else return;
+    render();
+  });
+
+  $('#fMake').addEventListener('change', function (e) {
+    state.make = e.target.value; state.model = 'Any model'; fillSelects(); render();
+  });
+  $('#fModel').addEventListener('change', function (e) { state.model = e.target.value; render(); });
+
+  $('#chips').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-clear]'); if (!b) return;
+    var k = b.dataset.clear;
+    if (k === 'type') state.type = 'All';
+    else if (k === 'make') { state.make = 'Any brand'; state.model = 'Any model'; fillSelects(); }
+    else if (k === 'color') state.color = null;
+    else if (k === 'gstyle') state.gstyle = 'All';
+    else if (k === 'finish') state.finish = 'All';
+    render();
+  });
+
+  $('#grid').addEventListener('click', function (e) {
+    var a = e.target.closest('[data-open]'); if (!a) return;
+    state.open = a.dataset.open; state.drawerFinish = 'Gloss'; state.added = false;
+    renderDrawer();
+    $('#drawerClose').focus();
+  });
+
+  $('#resetFilters').addEventListener('click', clearAll);
+
+  function closeDrawer() { state.open = null; state.added = false; renderDrawer(); }
+  $('#drawerScrim').addEventListener('click', closeDrawer);
+  $('#drawerClose').addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && state.open) closeDrawer(); });
+
+  $('#drawer').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-dfinish]');
+    if (b) { state.drawerFinish = b.dataset.dfinish; renderDrawer(); return; }
+    if (e.target.closest('#addToCart')) { state.cart += 1; state.added = true; render(); }
+  });
+
+  restore();
+  syncToggles();
+  fillSelects();
+  applyLang();
+})();
+</script>
+</body>
+</html>
