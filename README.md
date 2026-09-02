@@ -1,7 +1,7 @@
-# Symbiot — static preview
+# ApexWrapLab — static preview
 
 Single self-contained `index.html` (CSS inlined, images as data URIs, no external
-scripts). Snapshot of the WooCommerce theme running locally on :8790, with a tab
+scripts). Snapshot of the Symbiot WooCommerce theme (brand: ApexWrapLab) running locally on :8790, with a tab
 bar for: home · shop · filtered shop · product · accessory.
 
 Deployed as a **DigitalOcean App Platform static site** (free Starter tier).
